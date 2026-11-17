@@ -28,4 +28,8 @@
         background-color: rgba(156, 163, 175, 0.7);
         border-radius: 9999px;
     }
+
+    td {
+        padding: 10px;
+    }
 }
