@@ -12,9 +12,9 @@ enum FraudReason: string
     public function fraudReasonLabel(): string
     {
         return match ($this) {
-            self::SharedIban => 'IBAN is shared between users',
+            self::SharedIban => 'IBAN is shared between customers',
             self::ForeignPhoneNumber => 'Mobile phone number is not Dutch',
-            self::SharedIp => 'IP address is shared between users',
+            self::SharedIp => 'IP address is shared between customers',
             self::Underage => 'Customer is younger than 18',
         };
     }

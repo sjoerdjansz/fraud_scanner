@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Casts\AsEnumArrayObject;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['scan_id', 'external_customer_id', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone', 'ip', 'iban', 'fraud_reasons'])]
+#[Fillable(['scan_id', 'external_customer_id', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone', 'ip', 'iban', 'products', 'fraud_reasons'])]
 class Customer extends Model
 {
     const null UPDATED_AT = null;
