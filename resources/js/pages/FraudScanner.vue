@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {Head, router} from '@inertiajs/vue3';
+import {Head, Link, router} from '@inertiajs/vue3';
 import {ref} from "vue";
 import FraudScanController from "@/actions/App/Http/Controllers/FraudScanController";
 
@@ -35,6 +35,16 @@ function startFraudeScan() {
 <template>
     <Head title="Fraud Scanner"/>
     <div class="flex h-dvh flex-col items-center bg-[#FDFDFC] text-[#1b1b18]">
+        <nav>
+            <ul class="flex gap-4 text-blue-700">
+                <li>
+                    <Link to="/">Start</Link>
+                </li>
+                <li>
+                    <Link to="/scans">All Scans</Link>
+                </li>
+            </ul>
+        </nav>
         <div class="flex w-full max-w-[1024px] flex-1 flex-col gap-4 overflow-hidden p-4">
             <header class="flex w-full flex-col gap-4 rounded-md bg-gray-100 p-6 shadow-2xs">
                 <div class="flex items-center justify-between gap-4">

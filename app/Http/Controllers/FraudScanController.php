@@ -9,8 +9,6 @@ use App\Services\CustomerService;
 use App\Services\FraudService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
-use Inertia\Inertia;
-use Inertia\Response;
 
 class FraudScanController extends Controller
 {
@@ -19,7 +17,7 @@ class FraudScanController extends Controller
         private FraudService $fraudService,
     ) {}
 
-    public function __invoke(): Response|RedirectResponse
+    public function __invoke(): RedirectResponse
     {
         try {
             $apiCustomers = $this->customerService->fetchCustomers();
@@ -45,8 +43,6 @@ class FraudScanController extends Controller
             return $scan;
         });
 
-        return Inertia::render('FraudScanner', [
-            'customers' => $customers,
-        ]);
+        return redirect()->route('scans.show', $scan);
     }
 }
