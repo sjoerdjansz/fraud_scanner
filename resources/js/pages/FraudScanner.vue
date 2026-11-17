@@ -28,7 +28,7 @@ function startFraudeScan() {
                 <button :disabled="isScanning" @click="startFraudeScan"
                         class="shrink-0 cursor-pointer rounded-md bg-gray-800 px-4 py-2 text-white hover:bg-gray-600 disabled:cursor-not-allowed"
                 >
-                    {{ isScanning ? 'Hold your horses...' : 'Get Customers' }}
+                    {{ isScanning ? 'Hold your horses...' : 'New Scan' }}
                 </button>
             </div>
             <p>This applications scans all customers and highlights the fraudulent ones.</p>
