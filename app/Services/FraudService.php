@@ -54,11 +54,6 @@ class FraudService
         return ! $isDutch;
     }
 
-    /**
-     * @param  CarbonInterface|null  $dateOfBirth
-     * @return boolean
-     *
-     */
     private function isUnderage(?CarbonInterface $dateOfBirth): bool
     {
         return $dateOfBirth !== null && $dateOfBirth->age < 18;

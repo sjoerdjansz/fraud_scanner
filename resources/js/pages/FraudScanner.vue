@@ -12,6 +12,7 @@ type Customer = {
     phone: string | null;
     ip: string | null;
     iban: string | null;
+    fraud_reason: Array<string> | null;
 };
 
 defineProps<{

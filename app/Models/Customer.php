@@ -57,7 +57,7 @@ class Customer extends Model
         return [
             'external_customer_id' => 'integer',
             'date_of_birth' => 'date',
-            'fraud_reasons' => AsEnumArrayObject::of(FraudReason::class),
+            'fraud_reasons' => AsEnumArrayObject::class.':'.FraudReason::class,
             'products' => 'array',
         ];
     }
