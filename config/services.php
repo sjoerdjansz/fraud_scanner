@@ -35,4 +35,8 @@ return [
         ],
     ],
 
+    'customers' => [
+        'url' => env('CUSTOMERS_API_URL'),
+    ],
+
 ];
