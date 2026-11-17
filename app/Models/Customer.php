@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enums\FraudReason;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\AsEnumArrayObject;
 use Illuminate\Database\Eloquent\Model;
@@ -19,6 +20,33 @@ class Customer extends Model
     public function scan(): BelongsTo
     {
         return $this->belongsTo(Scan::class);
+    }
+
+    public function fromApi(array $data): Customer
+    {
+
+        $dateOfBirth = null;
+        $rawData = $data['dateOfBirth'] ?? null;
+
+        if (is_string($rawData) && Carbon::canBeCreatedFromFormat($rawData, 'd-m-Y')) {
+            $parsed = Carbon::createFromFormat('d-m-Y', $rawData)->startOfDay();
+            if ($parsed->format('d-m-Y') === $rawData) {
+                $dateOfBirth = $parsed;
+            }
+        }
+
+        return new Customer([
+            'external_customer_id' => $data['customerId'] ?? null,
+            'first_name' => $data['firstName'] ?? null,
+            'last_name' => $data['lastName'] ?? null,
+            'email' => $data['email'] ?? null,
+            'date_of_birth' => $dateOfBirth,
+            'phone' => $data['phoneNumber'] ?? null,
+            'ip' => $data['ipAddress'] ?? null,
+            'iban' => $data['iban'] ?? null,
+            'products' => $data['products'] ?? [],
+            'fraud_reasons' => [],
+        ]);
     }
 
     protected function casts(): array
