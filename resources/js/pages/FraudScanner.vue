@@ -56,9 +56,9 @@ function startFraudeScan() {
                         <th>ID</th>
                         <th>First name</th>
                         <th>Last name</th>
-                        <th>Phone</th>
                         <th>Date of birth</th>
                         <th>Email</th>
+                        <th>Phone</th>
                         <th>IBAN</th>
                         <th>IP</th>
                     </tr>

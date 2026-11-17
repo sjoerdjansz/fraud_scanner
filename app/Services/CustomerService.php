@@ -21,7 +21,7 @@ class CustomerService
     }
 
     /**
-     * @return array<int, array<string, mixed>>
+     * @return array<int, mixed>
      *
      * @throws CustomerException
      */
