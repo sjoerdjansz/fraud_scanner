@@ -1,5 +1,5 @@
 export type Customer = {
-    id: number
+    id: number;
     external_customer_id: number | null;
     first_name: string | null;
     last_name: string | null;
@@ -15,4 +15,4 @@ export type Scan = {
     id: number;
     created_at: string;
     customers: Customer[];
-}
+};
