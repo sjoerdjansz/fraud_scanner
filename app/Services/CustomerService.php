@@ -21,6 +21,8 @@ class CustomerService
     }
 
     /**
+     * @return array<int, array<string, mixed>>
+     *
      * @throws CustomerException
      */
     public function fetchCustomers(): array
