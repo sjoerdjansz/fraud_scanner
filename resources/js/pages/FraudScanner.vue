@@ -2,18 +2,10 @@
 import {Head, Link, router} from '@inertiajs/vue3';
 import {ref} from "vue";
 import FraudScanController from "@/actions/App/Http/Controllers/FraudScanController";
-
-type Customer = {
-    external_customer_id: number | null;
-    first_name: string | null;
-    last_name: string | null;
-    date_of_birth: string | null;
-    email: string | null;
-    phone: string | null;
-    ip: string | null;
-    iban: string | null;
-    fraud_reason: Array<string> | null;
-};
+import {ExclamationTriangleIcon} from '@heroicons/vue/24/outline'
+import {show} from "@/actions/Inertia/DevTools/Http/EntriesController";
+import Modal from "@/Modal.vue";
+import type {Customer} from "@/types";
 
 defineProps<{
     customers?: Customer[];
@@ -21,12 +13,20 @@ defineProps<{
 }>();
 
 const isScanning = ref(false);
+const showModal = ref(false);
 
 function startFraudeScan() {
     router.post(FraudScanController.url(), {}, {
         onStart: () => (isScanning.value = true),
         onFinish: () => (isScanning.value = false),
+        onSuccess: (page) => console.log(page.props.customers.map((customer) => {
+            return customer.fraud_reasons
+        }))
     })
+}
+
+function showDetails() {
+    showModal.value = !showModal.value;
 }
 
 
@@ -34,6 +34,9 @@ function startFraudeScan() {
 
 <template>
     <Head title="Fraud Scanner"/>
+    <div class="flex relative h-dvh flex-col items-center bg-[#FDFDFC] text-[#1b1b18]">
+        <Modal v-show="showModal" @click="showModal"/>
+
     <div class="flex h-dvh flex-col items-center bg-[#FDFDFC] text-[#1b1b18]">
         <nav>
             <ul class="flex gap-4 text-blue-700">
@@ -64,6 +67,7 @@ function startFraudeScan() {
                 >
                     <thead class="sticky top-0">
                     <tr>
+                        <th></th>
                         <th>ID</th>
                         <th>First name</th>
                         <th>Last name</th>
@@ -75,7 +79,11 @@ function startFraudeScan() {
                     </tr>
                     </thead>
                     <tbody>
-                    <tr class="bg-gray-100" v-for="(customer, i) in customers ?? []" :key="i">
+                    <tr @click="showDetails" class="cursor-pointer" v-for="(customer, i) in customers ?? []" :key="i"
+                        :class="customer.fraud_reasons?.length ? 'bg-red-200 hover:bg-red-300' : 'bg-gray-100 hover:bg-gray-200'">
+                        <td><span v-if="customer.fraud_reasons?.length"><ExclamationTriangleIcon
+                            class="text-red-600 h-6 rounded-md"/></span>
+                        </td>
                         <td>{{ customer.external_customer_id ?? ' ' }}</td>
                         <td>{{ customer.first_name ?? ' ' }}</td>
                         <td>{{ customer.last_name ?? ' ' }}</td>
