@@ -2,4 +2,4 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::inertia('/', 'FraudeScanner')->name('home');
+Route::inertia('/', 'FraudScanner')->name('home');
