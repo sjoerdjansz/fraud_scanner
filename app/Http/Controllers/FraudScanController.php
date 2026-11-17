@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Exceptions\CustomerException;
 use App\Models\Customer;
+use App\Models\Scan;
 use App\Services\CustomerService;
 use App\Services\FraudService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 use Inertia\Response;
 
@@ -34,7 +36,14 @@ class FraudScanController extends Controller
             $customers[] = Customer::fromApi($apiCustomer);
         }
 
-        $this->fraudService->scanFraudulentCustomers($customers);
+        $scannedCustomers = $this->fraudService->scanFraudulentCustomers($customers);
+
+        $scan = DB::transaction(function () use ($scannedCustomers) {
+            $scan = Scan::create();
+            $scan->customers()->saveMany($scannedCustomers);
+
+            return $scan;
+        });
 
         return Inertia::render('FraudScanner', [
             'customers' => $customers,
