@@ -10,7 +10,7 @@ class ScanController extends Controller
 {
     public function show(Scan $scan): Response
     {
-        return Inertia::render('FraudScanner', [
+        return Inertia::render('scans/Show', [
             'scan' => $scan->only('id', 'created_at'),
             'customers' => $scan->customers,
         ]);
@@ -18,7 +18,7 @@ class ScanController extends Controller
 
     public function index(): Response
     {
-        return Inertia::render('Scans', [
+        return Inertia::render('scans/Scans', [
             'scans' => Scan::query()->with('customers')->orderBy('created_at', 'desc')->get(),
         ]);
     }

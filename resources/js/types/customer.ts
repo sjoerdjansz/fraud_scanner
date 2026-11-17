@@ -1,4 +1,5 @@
 export type Customer = {
+    id: number | null
     external_customer_id: number | null;
     first_name: string | null;
     last_name: string | null;
@@ -7,5 +8,11 @@ export type Customer = {
     phone: string | null;
     ip: string | null;
     iban: string | null;
-    fraud_reasons: Array<string> | null;
+    fraud_reasons: Array<string>;
 };
+
+export type Scan = {
+    id: number;
+    created_at: string;
+    customers: Customer[];
+}

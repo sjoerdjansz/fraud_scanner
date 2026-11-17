@@ -7,5 +7,5 @@ use Illuminate\Support\Facades\Route;
 Route::inertia('/', 'FraudScanner')->name('home');
 
 Route::get('/scans', [ScanController::class, 'index'])->name('scans.index');
-Route::post('/scans', FraudScanController::class)->name('scan.store');
+Route::post('/scans', FraudScanController::class)->name('scans.store');
 Route::get('/scans/{scan}', [ScanController::class, 'show'])->name('scans.show');
