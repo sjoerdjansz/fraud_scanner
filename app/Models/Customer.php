@@ -4,12 +4,18 @@ namespace App\Models;
 
 use App\Enums\FraudReason;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Casts\AsEnumArrayObject;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-#[Fillable(['scan_id', 'external_customer_id', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone', 'ip', 'iban', 'products', 'fraud_reasons'])]
+#[Appends(['fraud_reason_labels'])]
+#[Fillable([
+    'scan_id', 'external_customer_id', 'first_name', 'last_name', 'email', 'date_of_birth', 'phone', 'ip', 'iban',
+    'products', 'fraud_reasons',
+])]
 class Customer extends Model
 {
     const null UPDATED_AT = null;
@@ -27,7 +33,6 @@ class Customer extends Model
      */
     public static function fromApi(array $data): Customer
     {
-
         $dateOfBirth = null;
         $rawData = $data['dateOfBirth'] ?? null;
 
@@ -50,6 +55,21 @@ class Customer extends Model
             'products' => $data['products'] ?? [],
             'fraud_reasons' => [],
         ]);
+    }
+
+    protected function fraudReasonLabels(): Attribute
+    {
+        return Attribute::make(
+            get: function () {
+                $labels = [];
+
+                foreach ($this->fraud_reasons as $reason) {
+                    $labels[] = $reason->fraudReasonLabel();
+                }
+
+                return $labels;
+            },
+        );
     }
 
     protected function casts(): array
