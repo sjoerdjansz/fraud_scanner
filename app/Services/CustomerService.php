@@ -49,5 +49,3 @@ class CustomerService
         return $customers;
     }
 }
-
-//   app(\App\Services\CustomerService::class)->fetchCustomers();
