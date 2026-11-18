@@ -57,6 +57,9 @@ class Customer extends Model
         ]);
     }
 
+    /**
+     * @return Attribute<array<int, string>, never>
+     */
     protected function fraudReasonLabels(): Attribute
     {
         return Attribute::make(

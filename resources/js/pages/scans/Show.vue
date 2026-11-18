@@ -26,7 +26,7 @@ const selectedCustomer = ref<Customer | null>(null);
             <h1 class="text-2xl">Scan {{ scan.id }}</h1>
             <p>Done at {{ new Date(scan.created_at).toLocaleString('nl-NL') }}</p>
         </header>
-        <main class="relative scrollbar-thumb-only overflow-auto flex-1 min-h-0">
+        <main class="relative scrollbar-thumb-only min-h-0 flex-1 overflow-auto">
             <table
                 class="w-full border-separate border-spacing-y-2 text-left whitespace-nowrap [&_th]:bg-gray-800 [&_th]:px-3 [&_th]:py-2 [&_th]:text-white [&_tr>*:first-child]:rounded-l-sm [&_tr>*:last-child]:rounded-r-sm"
             >
@@ -62,7 +62,13 @@ const selectedCustomer = ref<Customer | null>(null);
                         </td>
                         <td>{{ customer.external_customer_id ?? ' ' }}</td>
                         <td>{{ customer.first_name ?? ' ' }}</td>
-                        <td><span :title="customer.last_name ?? ' '" class="block max-w-40 truncate">{{ customer.last_name ?? ' ' }}</span></td>
+                        <td>
+                            <span
+                                :title="customer.last_name ?? ' '"
+                                class="block max-w-40 truncate"
+                                >{{ customer.last_name ?? ' ' }}</span
+                            >
+                        </td>
                         <td>{{ customer.date_of_birth?.slice(0, 10) ?? ' ' }}</td>
                         <td>{{ customer.email ?? ' ' }}</td>
                         <td>{{ customer.phone ?? ' ' }}</td>
