@@ -123,7 +123,8 @@ Scanner (`/`), scan overview (`/scans`) and scan detail (`/scans/{id}`). The ove
 
 ## With more time I would implement
 
-- Fraud reasons with context ("same IP as John Doe (127.0.0.1)") instead of a fixed label per reason.
+- Fraud reasons with context ("same IP as John Doe (127.0.0.1)") instead of a fixed label per reason. I would probably do this by putting each fraud rule in its own class with a shared interface
+- Run the scan as a queue job (fetch, check and persist to the database) because with the current implementation you'll be watching 'hold your horses...' for quite some time when the dataset is big or the API is slow. With 100 customers the wait is short and YAGNI.
 - JSON API endpoints and an OpenAPI v3 spec.
 - Scan overview with totals (customers / fraudulent) per scan, and pagination. The overview currently eager loads all customers of every scan, which it does not need.
 - Retry on invalid JSON, not only on connection/HTTP errors. Normalize IBAN/IP before comparing.
