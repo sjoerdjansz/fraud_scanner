@@ -8,7 +8,9 @@ export type Customer = {
     phone: string | null;
     ip: string | null;
     iban: string | null;
+    products: Array<string> | null;
     fraud_reasons: Array<string>;
+    fraud_reason_labels: Array<string>;
 };
 
 export type Scan = {
